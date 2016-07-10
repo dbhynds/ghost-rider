@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StopTest < ActiveSupport::TestCase
+class BuslineTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  route: MyString
-  name: MyString
+  rt: MyString
+  rtnm: MyString
 
 two:
-  route: MyString
-  name: MyString
+  rt: MyString
+  rtnm: MyString

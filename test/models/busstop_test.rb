@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DirectionTest < ActiveSupport::TestCase
+class BusstopTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
