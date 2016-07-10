@@ -13,16 +13,56 @@
 
 ActiveRecord::Schema.define(version: 20160710003538) do
 
-  create_table "directions", force: :cascade do |t|
-    t.string   "rt"
+  create_table "busdirections", force: :cascade do |t|
     t.string   "dir"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "patterns", force: :cascade do |t|
-    t.integer  "pid"
+  create_table "buslines", force: :cascade do |t|
     t.string   "rt"
+    t.string   "rtnm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "buslines", ["rt"], name: "index_buslines_on_rt"
+
+  create_table "busroutes", force: :cascade do |t|
+    t.integer  "busline_id"
+    t.integer  "busdirection_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "busroutes", ["busdirection_id"], name: "index_busroutes_on_busdirection_id"
+  add_index "busroutes", ["busline_id"], name: "index_busroutes_on_busline_id"
+
+  create_table "busroutes_busstops", id: false, force: :cascade do |t|
+    t.integer "busroute_id"
+    t.integer "busstop_id"
+  end
+
+  add_index "busroutes_busstops", ["busroute_id"], name: "index_busroutes_busstops_on_busroute_id"
+  add_index "busroutes_busstops", ["busstop_id"], name: "index_busroutes_busstops_on_busstop_id"
+
+  create_table "busstops", force: :cascade do |t|
+    t.integer  "stpid"
+    t.string   "stpnm"
+    t.float    "lat"
+    t.float    "lon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "busstops", ["lat"], name: "index_busstops_on_lat"
+  add_index "busstops", ["lon"], name: "index_busstops_on_lon"
+  add_index "busstops", ["stpid"], name: "index_busstops_on_stpid"
+  add_index "busstops", ["stpnm"], name: "index_busstops_on_stpnm"
+
+  create_table "patterns", force: :cascade do |t|
+    t.string   "rt"
+    t.integer  "pid"
     t.integer  "ln"
     t.string   "rtdir"
     t.datetime "created_at", null: false
@@ -58,26 +98,8 @@ ActiveRecord::Schema.define(version: 20160710003538) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "routes", force: :cascade do |t|
-    t.string   "rt"
-    t.string   "rtnm"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "stops", force: :cascade do |t|
-    t.string   "rt"
-    t.string   "dir"
-    t.integer  "stpid"
-    t.string   "stpnm"
-    t.float    "lat"
-    t.float    "lon"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "vehicles", force: :cascade do |t|
-    t.string   "rt"
+    t.integer  "route_id"
     t.integer  "vid"
     t.string   "tmstmp"
     t.float    "lat"
@@ -90,5 +112,10 @@ ActiveRecord::Schema.define(version: 20160710003538) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "vehicles", ["lat"], name: "index_vehicles_on_lat"
+  add_index "vehicles", ["lon"], name: "index_vehicles_on_lon"
+  add_index "vehicles", ["route_id"], name: "index_vehicles_on_route_id"
+  add_index "vehicles", ["vid"], name: "index_vehicles_on_vid"
 
 end

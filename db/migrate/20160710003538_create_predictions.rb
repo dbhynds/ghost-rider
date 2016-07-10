@@ -6,9 +6,7 @@ class CreatePredictions < ActiveRecord::Migration
       t.integer :vid
       t.string :tmstmp
       t.string :typ
-      t.integer :stpid
       t.string :stpnm
-      t.integer :vid
       t.integer :dstp
       t.string :rtdir
       t.string :des

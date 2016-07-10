@@ -7,62 +7,89 @@ class RetrievesController < ApplicationController
     @key = CommuteOptimizer::Application.config.bus_api_key
   end
 
-  def routes
+  def buslines
     # render plain: resource
     request = request_base('routes')
     response = HTTParty.get(request)
-    routes = response['bustime_response']['route']
-    routes.each { |route|
-      route.delete('rtclr')
-      new_route = Route.find_or_create_by(route)
-      new_route.save
+    buslines = response['bustime_response']['route']
+    if buslines.kind_of?(Hash)
+      buslines = [buslines]
+    end
+    buslines.each { |busline|
+      busline.delete('rtclr')
+      new_line = Busline.find_or_create_by(busline)
+      new_line.save
     }
-    render json: routes
+    render json: Busline.all
   end
 
-  def directions
-    routes = Route.all
+  def busdirections
+    buslines = Busline.all
     request = request_base('directions')
-    directions = Array.new
-    routes.each { |route|
-      route_request = request + request_params({'rt' => route.rt})
+
+    buslines.each { |busline|
+      route_request = request + request_params({'rt' => busline.rt})
       response = HTTParty.get(route_request)
-      dirs = response['bustime_response']['dir']
-      if dirs.kind_of?(Hash)
-        dirs = [dirs]
+      busdirections = response['bustime_response']['dir']
+      if !busdirections.kind_of?(Array)
+        busdirections = [busdirections]
       end
-      dirs.each { |dir|
-        direction = {'rt' => route.rt, 'dir' => dir}
-        Direction.find_or_create_by(direction)
-        directions.push(direction)
+      busdirections.each { |busdirection|
+        busdirection = Busdirection.find_or_create_by({:dir => busdirection})
+        if !busline.busdirections.exists?(busdirection)
+          busline.busdirections << busdirection
+        end
       }
-      directions.push(response)
     }
-    render json: directions
+    render json: Busroute.all
   end
 
-  def stops
-    directions = Direction.all
+  def busstops
+    busroutes = Busroute.all
     request = request_base('stops')
     stops = Array.new
-    directions.each { |direction|
+    busroutes.each { |busroute|
       direction_request = request + request_params({
-        :rt => direction.rt,
-        :dir => direction.dir
+        :rt => busroute.busline.rt,
+        :dir => busroute.busdirection.dir
         })
       response = HTTParty.get(direction_request)
-      response_stops = response['bustime_response']['stop']
-      if response_stops.kind_of?(Hash)
-        response_stops = [response_stops]
+      busstops = response['bustime_response']['stop']
+      if !busstops.kind_of?(Array)
+        busstops = [busstops]
       end
-      response_stops.each { |stop|
-        stop[:rt] = direction.rt
-        stop[:dir] = direction.dir
-        Stop.find_or_create_by(stop)
-        stops.push(stop)
+      busstops.each { |busstop|
+        busstop = Busstop.find_or_create_by(busstop)
+        if !busroute.busstops.exists?(busstop)
+          busroute.busstops << busstop
+        end
       }
     }
-    render json: stops
+    render json: Busstop.all
+
+    # stops = Array.new
+    # busdirections.each { |busdirection|
+    #   direction_request = request + request_params({
+    #     :rt => busdirection.rt,
+    #     :dir => busdirection.dir
+    #     })
+    #   response = HTTParty.get(direction_request)
+    #   response_stops = response['bustime_response']['stop']
+    #   if !response_stops.kind_of?(Array)
+    #     response_stops = [response_stops]
+    #   end
+    #   response_stops.each { |stop|
+    #     stop[:rt] = busdirection.rt
+    #     stop[:dir] = busdirection.dir
+    #     Stop.find_or_create_by(stop)
+    #     stops.push(stop)
+    #   }
+    # }
+    # render json: stops
+  end
+
+  def route
+    # https://maps.googleapis.com/maps/api/directions/json?origin=41.840592684542,-87.623230218887&destination=41.994241429331,-87.764899134636&mode=transit&alternatives=true&key=AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc
   end
 
   def prediction

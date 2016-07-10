@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'retrieve/routes', to: 'retrieves#routes'
-  get 'retrieve/directions', to: 'retrieves#directions'
-  get 'retrieve/stops', to: 'retrieves#stops'
+  get 'retrieve/buslines', to: 'retrieves#buslines'
+  get 'retrieve/busdirections', to: 'retrieves#busdirections'
+  get 'retrieve/busstops', to: 'retrieves#busstops'
 
   get 'prediction/:rt/:stpid', to: 'retrieves#prediction'
 

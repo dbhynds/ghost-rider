@@ -1,15 +1,14 @@
 class CreateVehicles < ActiveRecord::Migration
   def change
     create_table :vehicles do |t|
-      t.string :rt
-      t.integer :vid
+      t.belongs_to :route, index: true
+      t.integer :vid, index: true
       t.string :tmstmp
-      t.float :lat
-      t.float :lon
+      t.float :lat, index: true
+      t.float :lon, index: true
       t.integer :hdg
       t.integer :pid
       t.integer :pdist
-      t.string :rt
       t.string :des
       t.boolean :dly
 
