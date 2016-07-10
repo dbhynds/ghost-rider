@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ptrid: 1
+  seq: 1
+  typ: MyString
+  stpid: 1
+  sptnm: MyString
+  pdist: 1.5
+  lat: 1.5
+  lon: 1.5
+
+two:
+  ptrid: 1
+  seq: 1
+  typ: MyString
+  stpid: 1
+  sptnm: MyString
+  pdist: 1.5
+  lat: 1.5
+  lon: 1.5

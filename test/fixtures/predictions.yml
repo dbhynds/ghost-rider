@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stpid: 1
+  rt: MyString
+  vid: 1
+  tmstmp: MyString
+  typ: MyString
+  stpid: 1
+  stpnm: MyString
+  vid: 1
+  dstp: 1
+  rtdir: MyString
+  des: MyString
+  prdtm: MyString
+  delay: false
+
+two:
+  stpid: 1
+  rt: MyString
+  vid: 1
+  tmstmp: MyString
+  typ: MyString
+  stpid: 1
+  stpnm: MyString
+  vid: 1
+  dstp: 1
+  rtdir: MyString
+  des: MyString
+  prdtm: MyString
+  delay: false

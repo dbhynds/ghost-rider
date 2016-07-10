@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pid: 1
+  rt: MyString
+  pid: 1
+  ln: 1
+  rtdir: MyString
+
+two:
+  pid: 1
+  rt: MyString
+  pid: 1
+  ln: 1
+  rtdir: MyString
