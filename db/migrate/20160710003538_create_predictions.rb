@@ -13,7 +13,7 @@ class CreatePredictions < ActiveRecord::Migration
       t.string :rtdir
       t.string :des
       t.string :prdtm
-      t.boolean :delay
+      t.boolean :dly
 
       t.timestamps null: false
     end

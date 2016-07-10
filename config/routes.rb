@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+
+  get 'retrieve/routes', to: 'retrieves#routes'
+  get 'retrieve/directions', to: 'retrieves#directions'
+  get 'retrieve/stops', to: 'retrieves#stops'
+
+  get 'prediction/:rt/:stpid', to: 'retrieves#prediction'
+
+  resources :routes
+  resources :directions
+  resources :stops
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20160710003538) do
 
   create_table "directions", force: :cascade do |t|
-    t.string   "route"
-    t.string   "direction"
+    t.string   "rt"
+    t.string   "dir"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -53,14 +53,14 @@ ActiveRecord::Schema.define(version: 20160710003538) do
     t.string   "rtdir"
     t.string   "des"
     t.string   "prdtm"
-    t.boolean  "delay"
+    t.boolean  "dly"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "routes", force: :cascade do |t|
-    t.string   "route"
-    t.string   "name"
+    t.string   "rt"
+    t.string   "rtnm"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20160710003538) do
   end
 
   create_table "vehicles", force: :cascade do |t|
-    t.string   "route"
+    t.string   "rt"
     t.integer  "vid"
     t.string   "tmstmp"
     t.float    "lat"
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20160710003538) do
     t.integer  "hdg"
     t.integer  "pid"
     t.integer  "pdist"
-    t.string   "rt"
     t.string   "des"
     t.boolean  "dly"
     t.datetime "created_at", null: false

@@ -22,5 +22,8 @@ module CommuteOptimizer
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.bus_api_key = 'GwbCAKaDHXbqwXpB9jNrqmXhN'
+    config.bus_api_uri = 'http://www.ctabustracker.com/bustime/api/v1/'
+    config.gmaps_api_key = 'AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc'
   end
 end

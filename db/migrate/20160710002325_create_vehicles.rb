@@ -1,7 +1,7 @@
 class CreateVehicles < ActiveRecord::Migration
   def change
     create_table :vehicles do |t|
-      t.string :route
+      t.string :rt
       t.integer :vid
       t.string :tmstmp
       t.float :lat
