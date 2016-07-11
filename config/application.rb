@@ -24,6 +24,8 @@ module CommuteOptimizer
     config.active_record.raise_in_transactional_callbacks = true
     config.bus_api_key = 'GwbCAKaDHXbqwXpB9jNrqmXhN'
     config.bus_api_uri = 'http://www.ctabustracker.com/bustime/api/v1/'
+    config.train_api_key = '22eaaf6659e84c3e870afc0936efee71'
+    config.train_api_uri = 'http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx'
     config.gmaps_api_key = 'AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc'
   end
 end

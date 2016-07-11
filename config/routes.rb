@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :models
-  root to: "home#index"
+  devise_for :users
+  root to: "commutes#index"
 
   get 'retrieve/buslines', to: 'retrieves#buslines'
   get 'retrieve/busdirections', to: 'retrieves#busdirections'
   get 'retrieve/busstops', to: 'retrieves#busstops'
 
   get 'prediction/:rt/:stpid', to: 'retrieves#prediction'
+
+  resources :commutes
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
