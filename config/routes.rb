@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  devise_for :models
+  root to: "home#index"
+
   get 'retrieve/buslines', to: 'retrieves#buslines'
   get 'retrieve/busdirections', to: 'retrieves#busdirections'
   get 'retrieve/busstops', to: 'retrieves#busstops'
