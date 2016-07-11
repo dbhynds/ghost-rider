@@ -1,0 +1,27 @@
+<h2>New Commute</h2>
+
+<%= form_for @commute, url: {action: "create"}, html: {class: "nifty_form"} do |f| %>
+  <%= f.hidden_field :user_id %>
+  <%= f.label :origin %>
+  <%= f.text_field :origin %>
+  <br />
+  <%= f.label :origin_lat %>
+  <%= f.text_field :origin_lat %>
+  <br />
+  <%= f.label :origin_long %>
+  <%= f.text_field :origin_long %>
+  <br />
+  <%= f.label :dest, 'Destination' %>
+  <%= f.text_field :dest %>
+  <br />
+  <%= f.label :dest_lat, 'Destination Latitude' %>
+  <%= f.text_field :dest_lat %>
+  <br />
+  <%= f.label :dest_long, 'Destination Longitude' %>
+  <%= f.text_field :dest_long %>
+  <br />
+  <%= f.label :departure_time %>
+  <%= f.time_field :departure_time %>
+  <br />
+  <%= f.submit "Create" %>
+<% end %>

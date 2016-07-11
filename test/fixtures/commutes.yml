@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 1
+  origin: MyString
+  dest: MyString
+  departure_time: MyString
+  origin_lat: 1.5
+  origin_long: 1.5
+  dest_lat: MyString
+  dest_long: MyString
+
+two:
+  user: 1
+  origin: MyString
+  dest: MyString
+  departure_time: MyString
+  origin_lat: 1.5
+  origin_long: 1.5
+  dest_lat: MyString
+  dest_long: MyString
