@@ -1,6 +1,7 @@
 require 'httparty'
 
 class RetrievesController < ApplicationController
+  include MapApis
 
   def initialize
     @uri = CommuteOptimizer::Application.config.bus_api_uri
@@ -9,7 +10,7 @@ class RetrievesController < ApplicationController
 
   def buslines
     # render plain: resource
-    request = request_base('routes')
+    request = bus_request('routes')
     response = HTTParty.get(request)
     buslines = response['bustime_response']['route']
     if buslines.kind_of?(Hash)
@@ -25,10 +26,9 @@ class RetrievesController < ApplicationController
 
   def busdirections
     buslines = Busline.all
-    request = request_base('directions')
 
     buslines.each { |busline|
-      route_request = request + request_params({'rt' => busline.rt})
+      route_request = bus_request('directions',{'rt' => busline.rt})
       response = HTTParty.get(route_request)
       busdirections = response['bustime_response']['dir']
       if !busdirections.kind_of?(Array)
@@ -46,10 +46,9 @@ class RetrievesController < ApplicationController
 
   def busstops
     busroutes = Busroute.all
-    request = request_base('stops')
     stops = Array.new
     busroutes.each { |busroute|
-      direction_request = request + request_params({
+      direction_request = bus_request('stops',{
         :rt => busroute.busline.rt,
         :dir => busroute.busdirection.dir
         })
@@ -95,28 +94,12 @@ class RetrievesController < ApplicationController
   def prediction
     rt = params[:id]
     stpid = params[:stpid]
-    request = request_base('predictions')
-    prediction_request = request + request_params({
+    prediction_request = bus_reqeust('predictions',{
       :rt => rt,
       :stpid => stpid
       })
     response = HTTParty.get(prediction_request)
     render json: response
   end
-
-  private
-
-    def request_base(resource)
-      @uri + 'get' + resource + '?key=' + @key
-    end
-
-    def request_params(param_array)
-      param_strings = String.new
-      param_array.each { |key,val|
-        param_string = "\&#{key}=#{val}"
-        param_strings << param_string
-      }
-      param_strings
-    end
 
 end

@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   get 'prediction/:rt/:stpid', to: 'retrieves#prediction'
 
+  get 'commutes/:id/track', to: 'commutes#track'
   resources :commutes
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

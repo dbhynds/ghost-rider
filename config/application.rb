@@ -27,5 +27,7 @@ module CommuteOptimizer
     config.train_api_key = '22eaaf6659e84c3e870afc0936efee71'
     config.train_api_uri = 'http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx'
     config.gmaps_api_key = 'AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc'
+    config.gmaps_api_uri = 'https://maps.googleapis.com/maps/api/directions/json'
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

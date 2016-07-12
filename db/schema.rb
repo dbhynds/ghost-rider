@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711213635) do
+ActiveRecord::Schema.define(version: 20160712024340) do
 
   create_table "busdirections", force: :cascade do |t|
     t.string   "dir"
@@ -74,6 +74,33 @@ ActiveRecord::Schema.define(version: 20160711213635) do
   end
 
   add_index "commutes", ["user_id"], name: "index_commutes_on_user_id"
+
+  create_table "ghost_commutes", force: :cascade do |t|
+    t.integer  "commute_id"
+    t.string   "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "ghost_commutes", ["commute_id"], name: "index_ghost_commutes_on_commute_id"
+
+  create_table "ghost_steps", force: :cascade do |t|
+    t.integer  "ghost_commute_id"
+    t.string   "mode"
+    t.string   "type"
+    t.string   "line"
+    t.string   "origin"
+    t.float    "origin_lat"
+    t.float    "origin_long"
+    t.string   "dest"
+    t.float    "dest_lat"
+    t.float    "dest_long"
+    t.string   "duration"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "ghost_steps", ["ghost_commute_id"], name: "index_ghost_steps_on_ghost_commute_id"
 
   create_table "patterns", force: :cascade do |t|
     t.string   "rt"
