@@ -9,7 +9,6 @@ one:
   hdg: 1
   pid: 1
   pdist: 
-  rt: MyString
   des: MyString
   dly: false
 
@@ -22,6 +21,5 @@ two:
   hdg: 1
   pid: 1
   pdist: 
-  rt: MyString
   des: MyString
   dly: false

@@ -13,7 +13,7 @@ one:
   rtdir: MyString
   des: MyString
   prdtm: MyString
-  delay: false
+  dly: false
 
 two:
   stpid: 1
@@ -28,4 +28,4 @@ two:
   rtdir: MyString
   des: MyString
   prdtm: MyString
-  delay: false
+  dly: false
