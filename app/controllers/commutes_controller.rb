@@ -41,7 +41,9 @@ class CommutesController < ApplicationController
           'ghost_commute' => ghost_commute,
           'mode' => step['travel_mode'],
           'origin_lat' => step['start_location']['lat'],
-          'origin_long' => step['end_location']['lng']
+          'origin_long' => step['start_location']['lng'],
+          'dest_lat' => step['end_location']['lat'],
+          'dest_long' => step['end_location']['lng']
         }
         if step['travel_mode'] == 'TRANSIT'
           # step_data['type'] = details['line']['vehicle']['type']
