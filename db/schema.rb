@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20160712024340) do
   create_table "ghost_steps", force: :cascade do |t|
     t.integer  "ghost_commute_id"
     t.string   "mode"
-    t.string   "type"
+    t.string   "step_type"
     t.string   "line"
     t.string   "origin"
     t.float    "origin_lat"

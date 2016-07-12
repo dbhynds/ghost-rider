@@ -20,12 +20,11 @@ class CommutesController < ApplicationController
 
   def show
     @commute = Commute.find(params[:id])
-    render json: @commute
+    render json: @commute.ghost_commutes
   end
 
   def track
     @commute = Commute.find(params[:id])
-    #https://maps.googleapis.com/maps/api/directions/json?origin=41.954288131006,-87.675206065178&destination=41.780420933475,-87.606294751167&mode=transit&alternatives=true&key=AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc
     request = gmaps_request({
       'origin' => @commute.origin_lat.to_s + ',' + @commute.origin_long.to_s,
       'destination' => @commute.dest_lat.to_s + ',' + @commute.dest_long.to_s,
@@ -46,16 +45,18 @@ class CommutesController < ApplicationController
           'dest_long' => step['end_location']['lng']
         }
         if step['travel_mode'] == 'TRANSIT'
-          # step_data['type'] = details['line']['vehicle']['type']
-          step_data['line'] = details['line']['name']
-          step_data['origin'] = details['arrival_stop']['name']
+          step_data.merge!({
+            'step_type' => details['line']['vehicle']['type'],
+            'line' => details['line']['name'],
+            'origin' => details['arrival_stop']['name']
+            })
+        elsif step['travel_mode'] == 'WALKING'
+          step_data.merge!({'duration' => step['duration']['value']})
         end
-
-        # Rails.logger.info(step)
         ghost_step = GhostStep.create(step_data)
       end
     end
-    render json: routes
+    render json: @commute.ghost_commutes
   end
 
   private
