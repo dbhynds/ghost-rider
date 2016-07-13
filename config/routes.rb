@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'commutes/:id/track', to: 'commutes#track'
   resources :commutes
 
+  get 'ghost_commutes/:id/track', to: 'ghost_commutes#track'
+  resources :ghost_commutes
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
