@@ -7,13 +7,13 @@ class GhostCommuteTest < ActiveSupport::TestCase
   end
 
   test "create an emtpy ghost commute" do
-    ghost_commute = GhostCommute.new
-    assert ghost_commute.save
+    @ghost_commute = GhostCommute.new
+    assert @ghost_commute.save
   end
 
   test "a ghost commute belongs to a commute" do
-    commute = Commute.new.save
-    assert GhostCommute.create({'commute' => commute})
+    @commute = Commute.create()
+    assert @commute.ghost_commutes.build()
   end
   
 end
