@@ -7,20 +7,31 @@ module RouteScheduler
       case @next_step['mode']
       when 'WALKING'
         scheduler = Rufus::Scheduler.new
-        walking_counter = 0
         scheduler.in "#{@next_step['duration']}s" do
           puts "Walking completed: #{@next_step}"
           previous_steps.push(@next_step)
           track_steps(next_steps,previous_steps)
         end
-        previous_steps
+        @next_step
       when 'TRANSIT'
+        # scheduler = Rufus::Scheduler.new
+        # scheduler.every '1m' do |job|
+        #   case @next_step['step_type']
+        #   when 'BUS'
+        #   when 'SUBWAY'
+        #   end
+        #   if step_completed
+        #     job.unschedule
+        #     previous_steps.push(@next_step)
+        #     track_steps(next_steps,previous_steps)
+        #   end
+        # end
         previous_steps.push(@next_step)
         track_steps(next_steps,previous_steps)
-        previous_steps
+        @next_step
       end
     else
-      previous_steps
+      @next_step
     end
   end
 

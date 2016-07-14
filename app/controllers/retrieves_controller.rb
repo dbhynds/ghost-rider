@@ -1,4 +1,7 @@
 require 'httparty'
+require 'rubygems'
+require 'zip'
+require 'csv'
 
 class RetrievesController < ApplicationController
   include MapApis
@@ -6,6 +9,38 @@ class RetrievesController < ApplicationController
   def initialize
     @uri = CommuteOptimizer::Application.config.bus_api_uri
     @key = CommuteOptimizer::Application.config.bus_api_key
+  end
+
+  def all_cta_data
+    # http://www.transitchicago.com/downloads/sch_data/google_transit.zip
+    puts 'Downloading google_transit.zip'
+    input = HTTParty.get("http://www.transitchicago.com/downloads/sch_data/google_transit.zip").body
+    puts 'Unzipping...'
+    Zip::InputStream.open(StringIO.new(input)) do |io|
+      while entry = io.get_next_entry
+        case entry.name
+        when 'routes.txt'
+          puts 'Importing routes.txt'
+          routes_csv = entry.get_input_stream.read
+          routes = CSV.parse(routes_csv)
+          keys = 'route_id,route_short_name,route_long_name,route_type,route_url,route_color,route_text_color'.split(',')
+          routes.drop(1).each do |line|
+            route = Route.find_or_create_by([keys,line].transpose.to_h)
+            puts "Route: #{route}"
+          end
+        when 'stops.txt'
+          puts 'Importing stops.txt'
+          stops_csv = entry.get_input_stream.read
+          stops = CSV.parse(stops_csv)
+          keys = 'stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,location_type,parent_station,wheelchair_boarding'.split(',')
+          stops.drop(1).each do |line|
+            stop = Stop.find_or_create_by([keys,line].transpose.to_h)
+            puts "Stop: #{stop}"
+          end
+        end
+      end
+    end
+    render plain: 'Done!'
   end
 
   def buslines

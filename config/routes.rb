@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'retrieve/buslines', to: 'retrieves#buslines'
   get 'retrieve/busdirections', to: 'retrieves#busdirections'
   get 'retrieve/busstops', to: 'retrieves#busstops'
+  get 'retrieve/all', to: 'retrieves#all_cta_data'
 
   get 'prediction/:rt/:stpid', to: 'retrieves#prediction'
 

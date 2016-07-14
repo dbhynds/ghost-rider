@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712024340) do
+ActiveRecord::Schema.define(version: 20160714003349) do
 
   create_table "busdirections", force: :cascade do |t|
     t.string   "dir"
@@ -138,6 +138,32 @@ ActiveRecord::Schema.define(version: 20160712024340) do
     t.boolean  "dly"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.string   "route_id"
+    t.string   "route_short_name"
+    t.string   "route_long_name"
+    t.string   "route_type"
+    t.string   "route_url"
+    t.string   "route_color"
+    t.string   "route_text_color"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "stops", force: :cascade do |t|
+    t.integer  "stop_id"
+    t.integer  "stop_code"
+    t.string   "stop_name"
+    t.string   "stop_desc"
+    t.float    "stop_lat"
+    t.float    "stop_lon"
+    t.boolean  "location_type"
+    t.boolean  "parent_station"
+    t.boolean  "wheelchair_boarding"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "users", force: :cascade do |t|

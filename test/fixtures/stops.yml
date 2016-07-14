@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stop_id: 
+  stop_code: 
+  stop_name: 
+  stop_desc: 
+  stop_lat: 
+  stop_lon: 
+  location_type: 
+  parent_station: 
+  wheelchair_boarding: false
+
+two:
+  stop_id: 
+  stop_code: 
+  stop_name: 
+  stop_desc: 
+  stop_lat: 
+  stop_lon: 
+  location_type: 
+  parent_station: 
+  wheelchair_boarding: false
