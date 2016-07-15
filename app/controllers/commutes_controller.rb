@@ -48,7 +48,9 @@ class CommutesController < ApplicationController
           step_data.merge!({
             'step_type' => details['line']['vehicle']['type'],
             'line' => details['line']['name'],
-            'origin' => details['arrival_stop']['name']
+            'origin' => details['departure_stop']['name'],
+            'dest' => details['arrival_stop']['name'],
+            'heading' => details['headsign']
             })
         elsif step['travel_mode'] == 'WALKING'
           step_data.merge!({'duration' => step['duration']['value']})

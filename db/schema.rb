@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.string   "dest"
     t.float    "dest_lat"
     t.float    "dest_long"
+    t.string   "heading"
     t.string   "duration"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false

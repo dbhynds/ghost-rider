@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :commutes
 
   get 'ghost_commutes/:id/track', to: 'ghost_commutes#track'
+  get 'ghost_commutes/:id/observe', to: 'ghost_commutes#observe'
   resources :ghost_commutes
 
 

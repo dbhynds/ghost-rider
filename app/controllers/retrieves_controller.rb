@@ -123,7 +123,7 @@ class RetrievesController < ApplicationController
   end
 
   def route
-    # https://maps.googleapis.com/maps/api/directions/json?origin=41.840592684542,-87.623230218887&destination=41.994241429331,-87.764899134636&mode=transit&alternatives=true&key=AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc
+    # https://maps.googleapis.com/maps/api/directions/json?origin=41.954288131006,-87.675206065178&destination=41.780420933475,-87.606294751167&mode=transit&alternatives=true&key=AIzaSyB7IISLr7_ejDrcVm-n-Cht7aTC9KhW-yc
   end
 
   def prediction

@@ -11,6 +11,7 @@ class CreateGhostSteps < ActiveRecord::Migration
       t.string :dest
       t.float :dest_lat
       t.float :dest_long
+      t.string :heading
       t.string :duration
 
       t.timestamps null: false
