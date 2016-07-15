@@ -78,7 +78,7 @@ class GhostCommutesController < ApplicationController
             puts "arriving_at_origin: #{arriving_at_origin}"
             puts "arrived_at_origin: #{arrived_at_origin}"
             puts "arriving_at_dest: #{arriving_at_dest}"
-            puts "arriving_at_dest: #{arriving_at_dest}"
+            puts "arrived_at_dest: #{arrived_at_dest}"
             if arrived_at_dest
               puts "Train #{run['rn']} has arrived at #{dest}!"
               end_time = Time.now.to_i
