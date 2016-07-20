@@ -291,7 +291,7 @@ module RouteScheduler
       approaching_dest = false
 
       scheduler = Rufus::Scheduler.new
-      scheduler.every '1m', :first_in => '0s' do |job|
+      scheduler.every '1m', :first_in => '0s', :times => 180 do |job|
 
         puts "#{arriving_buses}"
         puts "#{watched_bus}"
@@ -412,7 +412,7 @@ module RouteScheduler
     arrived_at_dest = false
 
     scheduler = Rufus::Scheduler.new
-    scheduler.every '1m' do |job|
+    scheduler.every '1m', :times => 180 do |job|
       train_data = HTTParty.get(request).parsed_response['ctatt']['eta']
       upcoming_stops = train_data.map { |stop| stop['staNm'] }
       puts "Next stop: #{train_data.first}"
