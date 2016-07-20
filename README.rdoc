@@ -7,6 +7,8 @@ Ghost Rider lets you race ghost versions of yourself on the CTA, so you can figu
 * Clone this repo
 * Sign up for Google maps, CTA bus and CTA train API keys
 * Update the API keys in config/application.rb
+* Run <tt>bundle install</tt>
+* Run <tt>rake db:migrate</tt>
 * Run <tt>rails s</tt>
 
 == Create a commute
