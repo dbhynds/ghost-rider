@@ -5,8 +5,8 @@ class CreateStops < ActiveRecord::Migration
       t.integer :stop_code
       t.string :stop_name
       t.string :stop_desc
-      t.float :stop_lat
-      t.float :stop_lon
+      t.string :stop_lat
+      t.string :stop_lon
       t.boolean :location_type
       t.integer :parent_station
       t.boolean :wheelchair_boarding

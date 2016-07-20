@@ -272,7 +272,6 @@ module RouteScheduler
   def track_bus
 
     step_origins = Stop
-      .where("stop_name LIKE ?", "%#{@origin}%")
       .where("stop_lat LIKE ?", "%#{@next_step.origin_lat.to_d(7).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.origin_long.to_d(7).to_s[0...-1]}%")
       .all
