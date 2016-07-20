@@ -175,6 +175,7 @@ module RouteScheduler
 
   def track_train
     step_origins = Stop
+      .where("stop_code IS NULL")
       .where("stop_lat LIKE ?", "%#{@next_step.origin_lat.to_d(5).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.origin_long.to_d(5).to_s[0...-1]}%")
       .all
