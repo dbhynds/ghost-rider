@@ -1,28 +1,20 @@
-== README
+= Ghost Rider
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ghost Rider lets you race ghost versions of yourself on the CTA, so you can figure out if the route you're taking actually is faster.
 
-Things you may want to cover:
+== Getting started
 
-* Ruby version
+* Clone this repo
+* Sign up for Google maps, CTA bus and CTA train API keys
+* Update the API keys in config/application.rb
+* Run <tt>rails s</tt>
 
-* System dependencies
+== Create a commute
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Create a user at <tt>/users/sign_up</tt>
+* Create a commute at <tt>/commutes/new</tt>
+* Remember the ID of your commute
+* Get ghost commute directions from google at <tt>/commutes/:id/ghosts/fetch</tt>
+* Track a set of ghost commutes for a route at <tt>/commutes/:id/ghosts/track</tt>
+* Wait for a couple hours as the app follows your route
+* See the results at <tt>/commutes/:id/reports</tt>
