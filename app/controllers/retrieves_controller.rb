@@ -13,6 +13,7 @@ class RetrievesController < ApplicationController
 
   def all_cta_data
     # http://www.transitchicago.com/downloads/sch_data/google_transit.zip
+    render plain: 'Working on it!'
     puts 'Downloading google_transit.zip'
     input = HTTParty.get("http://www.transitchicago.com/downloads/sch_data/google_transit.zip").body
     puts 'Unzipping...'
@@ -40,7 +41,6 @@ class RetrievesController < ApplicationController
         end
       end
     end
-    render plain: 'Done!'
   end
 
   def buslines
