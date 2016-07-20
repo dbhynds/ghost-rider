@@ -40,6 +40,7 @@ class RetrievesController < ApplicationController
         end
       end
     end
+    puts 'Done!'
     render plain: 'Done!'
   end
 
