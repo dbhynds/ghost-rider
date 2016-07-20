@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160714003349) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "busdirections", force: :cascade do |t|
     t.string   "dir"
     t.datetime "created_at", null: false
@@ -26,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "buslines", ["rt"], name: "index_buslines_on_rt"
+  add_index "buslines", ["rt"], name: "index_buslines_on_rt", using: :btree
 
   create_table "busroutes", force: :cascade do |t|
     t.integer  "busline_id"
@@ -35,16 +38,16 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "busroutes", ["busdirection_id"], name: "index_busroutes_on_busdirection_id"
-  add_index "busroutes", ["busline_id"], name: "index_busroutes_on_busline_id"
+  add_index "busroutes", ["busdirection_id"], name: "index_busroutes_on_busdirection_id", using: :btree
+  add_index "busroutes", ["busline_id"], name: "index_busroutes_on_busline_id", using: :btree
 
   create_table "busroutes_busstops", id: false, force: :cascade do |t|
     t.integer "busroute_id"
     t.integer "busstop_id"
   end
 
-  add_index "busroutes_busstops", ["busroute_id"], name: "index_busroutes_busstops_on_busroute_id"
-  add_index "busroutes_busstops", ["busstop_id"], name: "index_busroutes_busstops_on_busstop_id"
+  add_index "busroutes_busstops", ["busroute_id"], name: "index_busroutes_busstops_on_busroute_id", using: :btree
+  add_index "busroutes_busstops", ["busstop_id"], name: "index_busroutes_busstops_on_busstop_id", using: :btree
 
   create_table "busstops", force: :cascade do |t|
     t.integer  "stpid"
@@ -55,10 +58,10 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "busstops", ["lat"], name: "index_busstops_on_lat"
-  add_index "busstops", ["lon"], name: "index_busstops_on_lon"
-  add_index "busstops", ["stpid"], name: "index_busstops_on_stpid"
-  add_index "busstops", ["stpnm"], name: "index_busstops_on_stpnm"
+  add_index "busstops", ["lat"], name: "index_busstops_on_lat", using: :btree
+  add_index "busstops", ["lon"], name: "index_busstops_on_lon", using: :btree
+  add_index "busstops", ["stpid"], name: "index_busstops_on_stpid", using: :btree
+  add_index "busstops", ["stpnm"], name: "index_busstops_on_stpnm", using: :btree
 
   create_table "commutes", force: :cascade do |t|
     t.integer  "user_id"
@@ -73,7 +76,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "commutes", ["user_id"], name: "index_commutes_on_user_id"
+  add_index "commutes", ["user_id"], name: "index_commutes_on_user_id", using: :btree
 
   create_table "ghost_commutes", force: :cascade do |t|
     t.integer  "commute_id"
@@ -82,7 +85,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "ghost_commutes", ["commute_id"], name: "index_ghost_commutes_on_commute_id"
+  add_index "ghost_commutes", ["commute_id"], name: "index_ghost_commutes_on_commute_id", using: :btree
 
   create_table "ghost_steps", force: :cascade do |t|
     t.integer  "ghost_commute_id"
@@ -101,7 +104,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "ghost_steps", ["ghost_commute_id"], name: "index_ghost_steps_on_ghost_commute_id"
+  add_index "ghost_steps", ["ghost_commute_id"], name: "index_ghost_steps_on_ghost_commute_id", using: :btree
 
   create_table "patterns", force: :cascade do |t|
     t.string   "rt"
@@ -161,7 +164,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.float    "stop_lat"
     t.float    "stop_lon"
     t.boolean  "location_type"
-    t.boolean  "parent_station"
+    t.integer  "parent_station"
     t.boolean  "wheelchair_boarding"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
@@ -182,8 +185,8 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "vehicles", force: :cascade do |t|
     t.integer  "route_id"
@@ -200,9 +203,11 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "vehicles", ["lat"], name: "index_vehicles_on_lat"
-  add_index "vehicles", ["lon"], name: "index_vehicles_on_lon"
-  add_index "vehicles", ["route_id"], name: "index_vehicles_on_route_id"
-  add_index "vehicles", ["vid"], name: "index_vehicles_on_vid"
+  add_index "vehicles", ["lat"], name: "index_vehicles_on_lat", using: :btree
+  add_index "vehicles", ["lon"], name: "index_vehicles_on_lon", using: :btree
+  add_index "vehicles", ["route_id"], name: "index_vehicles_on_route_id", using: :btree
+  add_index "vehicles", ["vid"], name: "index_vehicles_on_vid", using: :btree
 
+  add_foreign_key "ghost_commutes", "commutes"
+  add_foreign_key "ghost_steps", "ghost_commutes"
 end

@@ -8,7 +8,7 @@ class CreateStops < ActiveRecord::Migration
       t.float :stop_lat
       t.float :stop_lon
       t.boolean :location_type
-      t.boolean :parent_station
+      t.integer :parent_station
       t.boolean :wheelchair_boarding
 
       t.timestamps null: false

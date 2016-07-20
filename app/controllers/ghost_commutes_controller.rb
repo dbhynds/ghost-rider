@@ -11,7 +11,7 @@ class GhostCommutesController < ApplicationController
 
   def track
     @ghost_commute = GhostCommute.find(params[:id])
-    tracked_steps = track_steps(@ghost_commute.ghost_steps.to_a)
+    tracked_steps = track_next_steps(@ghost_commute.ghost_steps.to_a)
     puts tracked_steps
     render json: tracked_steps
   end
