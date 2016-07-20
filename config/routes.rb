@@ -10,11 +10,13 @@ Rails.application.routes.draw do
 
   get 'prediction/:rt/:stpid', to: 'retrieves#prediction'
 
-  get 'commutes/:id/track', to: 'commutes#track'
+  get 'commutes/:id/ghosts/fetch', to: 'commutes#fetch_ghosts'
+  get 'commutes/:id/ghosts/track', to: 'commutes#track_ghosts'
+  get 'commutes/:id/ghosts', to: 'commutes#ghosts'
+  get 'commutes/:id/reports', to: 'commutes#reports'
   resources :commutes
 
   get 'ghost_commutes/:id/track', to: 'ghost_commutes#track'
-  get 'ghost_commutes/:id/observe', to: 'ghost_commutes#observe'
   resources :ghost_commutes
 
 

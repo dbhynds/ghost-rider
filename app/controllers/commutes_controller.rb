@@ -20,10 +20,33 @@ class CommutesController < ApplicationController
 
   def show
     @commute = Commute.find(params[:id])
+    render json: @commute
+  end
+
+  def reports
+    @commute = Commute.find(params[:id])
+    reports = Hash.new
+    @commute.ghost_commutes.each do |ghost_commute|
+      steps = ghost_commute.ghost_steps
+      reports[ghost_commute.id] = steps.map { |step| step.duration }
+    end
+    render json: reports
+  end
+
+  def ghosts
+    @commute = Commute.find(params[:id])
     render json: @commute.ghost_commutes
   end
 
-  def track
+  def track_ghosts
+    @commute = Commute.find(params[:id])
+    @commute.ghost_commutes.each do |ghost_commute|
+      ghost_commute.track
+    end
+    render json: @commute.ghost_commutes
+  end
+
+  def fetch_ghosts
     @commute = Commute.find(params[:id])
     request = gmaps_request({
       'origin' => @commute.origin_lat.to_s + ',' + @commute.origin_long.to_s,
