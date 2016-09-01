@@ -51,6 +51,7 @@ module RouteScheduler
 
   def track_walking
     scheduler = Rufus::Scheduler.new
+    declare_progress()
     puts "Walking for #{@next_step['duration']} seconds"
     scheduler.in "#{@next_step['duration']}s" do
       puts "Walking completed: #{@next_step}"
@@ -60,16 +61,18 @@ module RouteScheduler
   end
 
   def track_bus
-
+    step_origins = Array.new
+    step_destinations = Array.new
+    
     step_origins = Stop
       .where("stop_lat LIKE ?", "%#{@next_step.origin_lat.to_d(7).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.origin_long.to_d(7).to_s[0...-1]}%")
       .all
-
     step_destinations = Stop
       .where("stop_lat LIKE ?", "%#{@next_step.dest_lat.to_d(7).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.dest_long.to_d(7).to_s[0...-1]}%")
       .select('stop_id').all.to_a.map { |step| step['stop_id'].to_s }
+
     puts "Acceptable destination ids: #{step_destinations}"
 
     step_arrivals = Array.new
@@ -81,9 +84,9 @@ module RouteScheduler
 
       scheduler = Rufus::Scheduler.new
       scheduler.every '1m', :first_in => '0s', :times => 180 do |job|
-
-        puts "#{arriving_buses}"
-        puts "#{watched_bus}"
+        declare_progress()
+        puts "arriving_buses: #{arriving_buses}"
+        puts "watched_bus: #{watched_bus}"
 
         if !arriving_buses
           request = bus_request('predictions',{'stpid' => step_origin.stop_id})
@@ -98,6 +101,7 @@ module RouteScheduler
           if step_arrivals.length
             earliest_bus = step_arrivals.first
             time_now = DateTime.now
+            # Sometimes earliest_bus is nil
             earliest_arrival = DateTime.strptime(earliest_bus['prdtm'],'%Y%m%d %H:%M') - time_now.offset
             time_dif = (earliest_arrival.to_i - time_now.to_i)
             puts "Next bus in: #{time_dif}"
@@ -159,7 +163,13 @@ module RouteScheduler
               puts "#{watched_bus} has arrived at #{@dest}"
               duration = end_time - @start_time
               @next_step.duration = duration
-              @next_step.save
+              Thread.new do
+                begin
+                  @next_step.save
+                ensure
+                  ActiveRecord::Base.connection_pool.release_connection
+                end
+              end
               next_step()
             end
           end # if approaching_dest
@@ -174,6 +184,7 @@ module RouteScheduler
   end
 
   def track_train
+    step_origins = Array.new
     step_origins = Stop
       .where("stop_code IS NULL")
       .where("stop_lat LIKE ?", "%#{@next_step.origin_lat.to_d(5).to_s[0...-1]}%")
@@ -202,7 +213,9 @@ module RouteScheduler
 
     scheduler = Rufus::Scheduler.new
     scheduler.every '1m', :times => 180 do |job|
+      declare_progress()
       train_data = HTTParty.get(request).parsed_response['ctatt']['eta']
+      # Sometimes train_data is nil
       upcoming_stops = train_data.map { |stop| stop['staNm'] }
       puts "Next stop: #{train_data.first}"
 
@@ -228,13 +241,22 @@ module RouteScheduler
         end_time = Time.now.to_i
         duration = end_time - @start_time
         @next_step.duration = duration
-        @next_step.save
-
+        Thread.new do
+          begin
+            @next_step.save
+          ensure
+            ActiveRecord::Base.connection_pool.release_connection
+          end
+        end
         next_step()
       end
 
     end
     @next_step
+  end
+
+  def declare_progress
+    puts "Commute #{@next_step.ghost_commute_id}; Step #{@next_step.id} of #{@next_step.ghost_commute.ghost_steps}"
   end
 
 end
