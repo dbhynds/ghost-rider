@@ -13,7 +13,7 @@ class GhostStepTest < ActiveSupport::TestCase
     assert @ghost_commute.ghost_steps.create!
   end
 
-  test "create a valid ghost step" do
+  test "create an invalid ghost step" do
     @ghost_step = GhostStep.new
     assert @ghost_step.invalid?
     assert @ghost_step.errors[:ghost_commute].any?

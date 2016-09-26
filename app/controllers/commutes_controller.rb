@@ -4,7 +4,7 @@ class CommutesController < ApplicationController
 
   before_action :authenticate_user!
   before_filter :setup_commute, :only => [:show, :edit, :update, :destroy, :reports, :ghosts, :track_ghosts, :fetch_ghosts]
-  before_filter :require_permission, :only => [:show, :edit, :update, :destroy, :ghosts]
+  before_filter :require_permission, :only => [:show, :edit, :update, :destroy, :reports, :ghosts, :track_ghosts, :fetch_ghosts]
 
   def index
     render json: @commutes = current_user.commutes
@@ -106,7 +106,7 @@ class CommutesController < ApplicationController
     end
 
     def require_permission
-      render :text => 'Unauthorized', :status => :unauthorized if @commute.user != current_user if current_user != @commute.user
+      render :text => 'Unauthorized', :status => :unauthorized if @commute.user != current_user
     end
 
 end

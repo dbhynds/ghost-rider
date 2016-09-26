@@ -31,4 +31,18 @@ class GhostCommutesController < ApplicationController
     render json: @ghost_steps
   end
 
+  private
+
+    def commute_params
+      params.require(:ghost_commute).permit(:commute_id,:duration)
+    end
+
+    def setup_commute
+      @ghost_commute = GhostCommute.find(params[:id])
+    end
+
+    def require_permission
+      render :text => 'Unauthorized', :status => :unauthorized if @ghost_commute.user != current_user
+    end
+
 end

@@ -13,7 +13,7 @@ class CommuteTest < ActiveSupport::TestCase
     assert @user.commutes.create! @attr
   end
 
-  test "create a valid commute" do
+  test "create an invalid commute" do
     @commute = Commute.new
     assert @commute.invalid?
     assert @commute.errors[:user].any?

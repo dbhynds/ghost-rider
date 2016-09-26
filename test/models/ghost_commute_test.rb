@@ -12,7 +12,7 @@ class GhostCommuteTest < ActiveSupport::TestCase
     assert @commute.ghost_commutes.create!
   end
 
-  test "create a valid ghost commute" do
+  test "create an invalid ghost commute" do
     @ghost_commute = GhostCommute.new
     assert @ghost_commute.invalid?
     assert @ghost_commute.errors[:commute].any?
