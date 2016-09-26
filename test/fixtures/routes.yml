@@ -1,19 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  route_id: 
-  route_short_name: 
-  route_long_name: 
-  route_type: 
-  route_url: 
-  route_color: 
-  route_text_color: MyString
+  route_id: G
+  route_long_name: Green Line
+  route_type: 1
+  route_url: http://www.transitchicago.com/riding_cta/systemguide/greenline.aspx
+  route_color: 009B3A
+  route_text_color: FFFFFF
 
 two:
-  route_id: 
-  route_short_name: 
-  route_long_name: 
-  route_type: 
-  route_url: 
-  route_color: 
-  route_text_color: MyString
+  route_id: 63
+  route_short_name: 63
+  route_long_name: 63rd
+  route_type: 3
+  route_url: http://www.transitchicago.com/riding_cta/busroute.aspx?RouteId=224

@@ -1,30 +1,44 @@
 class CommutesController < ApplicationController
   include MapApis
+  include RouteScheduler
 
   before_action :authenticate_user!
+  before_filter :setup_commute, :only => [:show, :edit, :update, :destroy, :reports, :ghosts, :track_ghosts, :fetch_ghosts]
+  before_filter :require_permission, :only => [:show, :edit, :update, :destroy, :ghosts]
 
   def index
-    render json: Commute.all
+    render json: @commutes = current_user.commutes
   end
 
   def new
-    @commute = Commute.new
-    @commute.user_id = current_user.id
+    @commute = Commute.new({ :user_id => current_user.id})
   end
 
   def create
     @commute = Commute.new(commute_params)
     @commute.save
-    render json: @commute
+    redirect_to @commute
   end
 
   def show
-    @commute = Commute.find(params[:id])
     render json: @commute
   end
 
+  def edit
+    render json: @commute
+  end
+
+  def update
+    @commute.update_attributes(params[:commute])
+    redirect_to @commute
+  end
+
+  def destroy
+    @commute.destroy
+    redirect_to commutes_path
+  end
+
   def reports
-    @commute = Commute.find(params[:id])
     reports = Hash.new
     @commute.ghost_commutes.each do |ghost_commute|
       steps = ghost_commute.ghost_steps
@@ -34,12 +48,10 @@ class CommutesController < ApplicationController
   end
 
   def ghosts
-    @commute = Commute.find(params[:id])
-    render json: @commute.ghost_commutes
+    render json: @ghost_commutes = @commute.ghost_commutes
   end
 
   def track_ghosts
-    @commute = Commute.find(params[:id])
     @commute.ghost_commutes.each do |ghost_commute|
       ghost_commute.track
     end
@@ -47,7 +59,6 @@ class CommutesController < ApplicationController
   end
 
   def fetch_ghosts
-    @commute = Commute.find(params[:id])
     request = gmaps_request({
       'origin' => @commute.origin_lat.to_s + ',' + @commute.origin_long.to_s,
       'destination' => @commute.dest_lat.to_s + ',' + @commute.dest_long.to_s,
@@ -87,7 +98,15 @@ class CommutesController < ApplicationController
   private
 
     def commute_params
-      params.require(:commute).permit(:user_id, :origin, :dest, :departure_time, :origin_lat, :origin_long, :dest_lat, :dest_long)
+      params.require(:commute).permit(:user_id,:origin,:dest,:departure_time,:origin_lat,:origin_long,:dest_lat,:dest_long)
+    end
+
+    def setup_commute
+      @commute = Commute.find(params[:id])
+    end
+
+    def require_permission
+      render :text => 'Unauthorized', :status => :unauthorized if @commute.user != current_user if current_user != @commute.user
     end
 
 end

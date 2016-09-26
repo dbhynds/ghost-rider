@@ -1,12 +1,20 @@
 class GhostCommutesController < ApplicationController
   include RouteScheduler
 
+  before_action :authenticate_user!
+
   def index
-    render json: GhostCommute.all
+    render json: @ghost_commutes = GhostCommute.all
   end
 
   def show
     render json: GhostCommute.find(params[:id])
+  end
+
+  def destroy
+    @ghost_commute = GhostCommute.find(params[:id])
+    @ghost_commute.destroy
+    redirect_to ghost_commutes_path
   end
 
   def track

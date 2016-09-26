@@ -41,7 +41,7 @@ module RouteScheduler
   end
 
   def next_step
-    if  @next_step = @next_steps.shift
+    if @next_step = @next_steps.shift
       track_step()
     else
       puts "Arrived at final destination!"
@@ -65,10 +65,12 @@ module RouteScheduler
     step_destinations = Array.new
     
     step_origins = Stop
+      .where("stop_id <= 29999")
       .where("stop_lat LIKE ?", "%#{@next_step.origin_lat.to_d(7).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.origin_long.to_d(7).to_s[0...-1]}%")
       .all
     step_destinations = Stop
+      .where("stop_id <= 29999")
       .where("stop_lat LIKE ?", "%#{@next_step.dest_lat.to_d(7).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.dest_long.to_d(7).to_s[0...-1]}%")
       .select('stop_id').all.to_a.map { |step| step['stop_id'].to_s }
@@ -156,7 +158,10 @@ module RouteScheduler
               puts "Bus #{watched_bus} is approaching #{@dest}"
             end
           end
+          
           if approaching_dest
+            upcoming_stops = []
+            step_destinations = []
             if (upcoming_stops & step_destinations).empty?
               job.unschedule
               end_time = Time.now.to_i
@@ -187,6 +192,8 @@ module RouteScheduler
     step_origins = Array.new
     step_origins = Stop
       .where("stop_code IS NULL")
+      .where("stop_id < 29999")
+      .where("stop_id <= 39999")
       .where("stop_lat LIKE ?", "%#{@next_step.origin_lat.to_d(5).to_s[0...-1]}%")
       .where("stop_lon LIKE ?", "%#{@next_step.origin_long.to_d(5).to_s[0...-1]}%")
       .all

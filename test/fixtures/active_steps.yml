@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ghost_step: 1
+  start_time: MyString
+  origin: MyString
+  destination: MyString
+  heading: MyString
+  arriving_at_origin: MyString
+  arrived_at_origin: MyString
+  arriving_at_dest: MyString
+  arrived_at_dest: MyString
+  request: MyString
+  arriving_vehicles: MyString
+  watched_vehicles: MyString
+
+two:
+  ghost_step: 1
+  start_time: MyString
+  origin: MyString
+  destination: MyString
+  heading: MyString
+  arriving_at_origin: MyString
+  arrived_at_origin: MyString
+  arriving_at_dest: MyString
+  arrived_at_dest: MyString
+  request: MyString
+  arriving_vehicles: MyString
+  watched_vehicles: MyString

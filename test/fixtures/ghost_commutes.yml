@@ -1,9 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  commute_id: 1
-  duration: MyString
+  commute: one
 
 two:
-  commute_id: 1
-  duration: MyString
+  commute: one
+
+three:
+  commute: two

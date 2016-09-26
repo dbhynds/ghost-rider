@@ -7,8 +7,8 @@ class CreateCommutes < ActiveRecord::Migration
       t.string :departure_time
       t.float :origin_lat
       t.float :origin_long
-      t.string :dest_lat
-      t.string :dest_long
+      t.float :dest_lat
+      t.float :dest_long
 
       t.timestamps null: false
     end

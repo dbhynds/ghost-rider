@@ -4,8 +4,33 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one: 
+  ghost_commute: one
+  mode: WALKING
+  origin_lat: 41.8761537
+  origin_long: -87.6276275
+  dest_lat: 41.8795052
+  dest_long: -87.6260376
+  duration: 360
+
+two: 
+  ghost_commute: one
+  mode: TRANSIT
+  step_type: SUBWAY
+  line: Green Line
+  origin: Adams/Wabash
+  origin_lat: 41.8795052
+  origin_long: -87.6260376
+  dest: Cottage Grove
+  dest_lat: 41.780508
+  dest_long: -87.6059034
+  heading: Cottage Grove
+
+three:
+  ghost_commute: one
+  mode: WALKING
+  origin_lat: 41.780508
+  origin_long: -87.6059034
+  dest_lat: 41.7811225
+  dest_long: -87.6083919
+  duration: 204

@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160714003349) do
+ActiveRecord::Schema.define(version: 20160921190848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_steps", force: :cascade do |t|
+    t.integer  "ghost_step_id"
+    t.string   "start_time"
+    t.string   "origin"
+    t.string   "destination"
+    t.string   "heading"
+    t.boolean  "arriving_at_origin"
+    t.boolean  "arrived_at_origin"
+    t.boolean  "arriving_at_dest"
+    t.boolean  "arrived_at_dest"
+    t.string   "request"
+    t.string   "arriving_vehicles"
+    t.string   "watched_vehicles"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "active_steps", ["ghost_step_id"], name: "index_active_steps_on_ghost_step_id", using: :btree
 
   create_table "busdirections", force: :cascade do |t|
     t.string   "dir"
@@ -70,8 +89,8 @@ ActiveRecord::Schema.define(version: 20160714003349) do
     t.string   "departure_time"
     t.float    "origin_lat"
     t.float    "origin_long"
-    t.string   "dest_lat"
-    t.string   "dest_long"
+    t.float    "dest_lat"
+    t.float    "dest_long"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -80,7 +99,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
 
   create_table "ghost_commutes", force: :cascade do |t|
     t.integer  "commute_id"
-    t.string   "duration"
+    t.integer  "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -208,6 +227,7 @@ ActiveRecord::Schema.define(version: 20160714003349) do
   add_index "vehicles", ["route_id"], name: "index_vehicles_on_route_id", using: :btree
   add_index "vehicles", ["vid"], name: "index_vehicles_on_vid", using: :btree
 
+  add_foreign_key "active_steps", "ghost_steps"
   add_foreign_key "ghost_commutes", "commutes"
   add_foreign_key "ghost_steps", "ghost_commutes"
 end

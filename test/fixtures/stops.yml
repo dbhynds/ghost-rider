@@ -1,23 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  stop_id: 
-  stop_code: 
-  stop_name: 
-  stop_desc: 
-  stop_lat: 
-  stop_lon: 
-  location_type: 
-  parent_station: 
+  stop_id: 30131
+  stop_name: Adams/Wabash
+  stop_lat: "41.879507"
+  stop_lon: "-87.626037"
+  location_type: false
+  parent_station: 40680
   wheelchair_boarding: false
 
 two:
-  stop_id: 
-  stop_code: 
-  stop_name: 
-  stop_desc: 
-  stop_lat: 
-  stop_lon: 
-  location_type: 
-  parent_station: 
+  stop_id: 30132
+  stop_name: Adams/Wabash
+  stop_lat: "41.879507"
+  stop_lon: "-87.626037"
+  location_type: false
+  parent_station: 40680
   wheelchair_boarding: false
