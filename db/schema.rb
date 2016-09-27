@@ -22,15 +22,15 @@ ActiveRecord::Schema.define(version: 20160921190848) do
     t.string   "origin"
     t.string   "destination"
     t.string   "heading"
-    t.boolean  "arriving_at_origin"
-    t.boolean  "arrived_at_origin"
-    t.boolean  "arriving_at_dest"
-    t.boolean  "arrived_at_dest"
+    t.boolean  "arriving_at_origin", default: false
+    t.boolean  "arrived_at_origin",  default: false
+    t.boolean  "arriving_at_dest",   default: false
+    t.boolean  "arrived_at_dest",    default: false
     t.string   "request"
     t.string   "arriving_vehicles"
     t.string   "watched_vehicles"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "active_steps", ["ghost_step_id"], name: "index_active_steps_on_ghost_step_id", using: :btree

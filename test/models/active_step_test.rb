@@ -29,4 +29,19 @@ class ActiveStepTest < ActiveSupport::TestCase
     assert @active_step.ghost_step.ghost_commute.commute.user == @user
   end
 
+  test "an active step has a mode" do
+    mode = (@ghost_step.mode == 'WALKING') ? @ghost_step.mode : @ghost_step.step_type
+    assert_equal @active_step.mode, mode
+    
+    @ghost_step = ghost_steps(:two)
+    mode = (@ghost_step.mode == 'WALKING') ? @ghost_step.mode : @ghost_step.step_type
+    @active_step = active_steps(:two)
+    assert_equal @active_step.mode, mode
+  end
+
+  test "active step has origin and dest of ghost step" do
+    assert_equal @active_step.origin, @ghost_step.origin
+    assert_equal @active_step.destination, @ghost_step.dest
+  end
+
 end

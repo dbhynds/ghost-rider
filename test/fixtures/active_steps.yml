@@ -1,29 +1,85 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  ghost_step: 1
-  start_time: MyString
-  origin: MyString
-  destination: MyString
-  heading: MyString
-  arriving_at_origin: MyString
-  arrived_at_origin: MyString
-  arriving_at_dest: MyString
-  arrived_at_dest: MyString
-  request: MyString
-  arriving_vehicles: MyString
-  watched_vehicles: MyString
+  ghost_step: one
+  start_time: 
+  heading: 
+  arriving_at_origin: false
+  arrived_at_origin: false
+  arriving_at_dest: false
+  arrived_at_dest: false
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 
 
 two:
-  ghost_step: 1
-  start_time: MyString
-  origin: MyString
-  destination: MyString
-  heading: MyString
-  arriving_at_origin: MyString
-  arrived_at_origin: MyString
-  arriving_at_dest: MyString
-  arrived_at_dest: MyString
-  request: MyString
-  arriving_vehicles: MyString
-  watched_vehicles: MyString
+  ghost_step: two
+  start_time: 
+  heading: 
+  arriving_at_origin: false
+  arrived_at_origin: false
+  arriving_at_dest: false
+  arrived_at_dest: false
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 
+
+one_0:
+  ghost_step: one
+  start_time: 
+  heading: 
+  arriving_at_origin: false
+  arrived_at_origin: false
+  arriving_at_dest: false
+  arrived_at_dest: false
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 
+
+one_1:
+  ghost_step: one
+  start_time: 
+  heading: 
+  arriving_at_origin: true
+  arrived_at_origin: false
+  arriving_at_dest: false
+  arrived_at_dest: false
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 
+
+one_3:
+  ghost_step: one
+  start_time: 
+  heading: 
+  arriving_at_origin: true
+  arrived_at_origin: true
+  arriving_at_dest: false
+  arrived_at_dest: false
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 
+
+one_7:
+  ghost_step: one
+  start_time: 
+  heading: 
+  arriving_at_origin: true
+  arrived_at_origin: true
+  arriving_at_dest: true
+  arrived_at_dest: false
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 
+
+one_15:
+  ghost_step: one
+  start_time: 
+  heading: 
+  arriving_at_origin: true
+  arrived_at_origin: true
+  arriving_at_dest: true
+  arrived_at_dest: true
+  request: 
+  arriving_vehicles: 
+  watched_vehicles: 

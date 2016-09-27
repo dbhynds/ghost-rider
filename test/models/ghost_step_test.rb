@@ -27,4 +27,11 @@ class GhostStepTest < ActiveSupport::TestCase
     assert @ghost_step.ghost_commute.commute.user == @user
   end
 
+  test "track a ghost step" do
+    assert_difference('ActiveStep.count') do
+      @active_step = @ghost_step.track
+      assert_equal @active_step.ghost_step, @ghost_step
+    end
+  end
+
 end

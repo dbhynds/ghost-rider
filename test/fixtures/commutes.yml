@@ -14,8 +14,18 @@ two:
   user: two
   origin: 4001 N Ravenswood Ave
   dest: 6237 S Langley Ave
-  departure_time: 17:00
+  departure_time: 17:01
   origin_lat: 41.945635
   origin_long: -87.667975
+  dest_lat: 41.781123
+  dest_long: -87.608366
+
+three:
+  user: one
+  origin: Harold Washington Library
+  dest: 6237 S Langley Ave
+  departure_time: 17:00
+  origin_lat: 41.876153
+  origin_long: -87.627708
   dest_lat: 41.781123
   dest_long: -87.608366

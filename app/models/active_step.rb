@@ -1,10 +1,23 @@
 class ActiveStep < ActiveRecord::Base
   belongs_to :ghost_step
   validates :ghost_step, presence: true
-  attr_reader :mode
+  attr_reader :mode, :origin, :destination, :duration
 
   def mode
-    return self.ghost_step.step_type unless ghost_step.mode == 'WALKING'
-    self.ghost_step.mode
+    return ghost_step.step_type unless ghost_step.mode == 'WALKING'
+    ghost_step.mode
   end
+
+  def origin
+    ghost_step.origin
+  end
+
+  def destination
+    ghost_step.dest
+  end
+
+  def duration
+    ghost_step.duration
+  end
+
 end
