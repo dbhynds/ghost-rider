@@ -3,7 +3,6 @@ class CreateActiveSteps < ActiveRecord::Migration
     create_table :active_steps do |t|
       t.belongs_to :ghost_step, index: true, foreign_key: true
       t.string :start_time
-      t.string :heading
       t.boolean :arriving_at_origin, :default => false
       t.boolean :arrived_at_origin, :default => false
       t.boolean :arriving_at_dest, :default => false

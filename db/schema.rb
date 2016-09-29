@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 20160921190848) do
   create_table "active_steps", force: :cascade do |t|
     t.integer  "ghost_step_id"
     t.string   "start_time"
-    t.string   "origin"
-    t.string   "destination"
     t.string   "heading"
     t.boolean  "arriving_at_origin", default: false
     t.boolean  "arrived_at_origin",  default: false
@@ -119,8 +117,9 @@ ActiveRecord::Schema.define(version: 20160921190848) do
     t.float    "dest_long"
     t.string   "heading"
     t.string   "duration"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.boolean  "completed",        default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "ghost_steps", ["ghost_commute_id"], name: "index_ghost_steps_on_ghost_commute_id", using: :btree

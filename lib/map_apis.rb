@@ -1,18 +1,18 @@
 module MapApis
 
   def bus_request(resource, param_array = {})
-    puts url = bus_base(resource) + request_params(param_array)
+    url = bus_base(resource) + request_params(param_array)
     url
   end
 
   def train_request(resource, param_array = {})
-    puts url = train_base(resource) + request_params(param_array)
+    url = train_base(resource) + request_params(param_array)
     url
   end
 
   def gmaps_request(param_array)
     base = append_key('https://maps.googleapis.com/maps/api/directions/json',CommuteOptimizer::Application.config.gmaps_api_key)
-    puts url = base + request_params(param_array)
+    url = base + request_params(param_array)
     url
   end
 

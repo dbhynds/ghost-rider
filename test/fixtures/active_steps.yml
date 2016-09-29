@@ -2,7 +2,7 @@
 
 one:
   ghost_step: one
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: false
   arrived_at_origin: false
@@ -14,7 +14,7 @@ one:
 
 two:
   ghost_step: two
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: false
   arrived_at_origin: false
@@ -26,7 +26,7 @@ two:
 
 one_0:
   ghost_step: one
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: false
   arrived_at_origin: false
@@ -38,7 +38,7 @@ one_0:
 
 one_1:
   ghost_step: one
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: true
   arrived_at_origin: false
@@ -50,7 +50,7 @@ one_1:
 
 one_3:
   ghost_step: one
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: true
   arrived_at_origin: true
@@ -62,7 +62,7 @@ one_3:
 
 one_7:
   ghost_step: one
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: true
   arrived_at_origin: true
@@ -74,7 +74,7 @@ one_7:
 
 one_15:
   ghost_step: one
-  start_time: 
+  start_time: <%= Time.now.to_i %>
   heading: 
   arriving_at_origin: true
   arrived_at_origin: true

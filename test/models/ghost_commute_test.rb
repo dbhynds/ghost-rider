@@ -25,5 +25,14 @@ class GhostCommuteTest < ActiveSupport::TestCase
     assert @ghost_commute.commute.id == @commute.id
     assert @ghost_commute.commute.user == @user
   end
+
+  test "a ghost commute has incompleted steps" do
+    assert_not_empty @ghost_commute.ghost_steps.incomplete
+    @ghost_commute.ghost_steps.incomplete.each { |incomplete_step|
+      incomplete_step.completed = true
+      incomplete_step.save
+    }
+    assert_empty @ghost_commute.ghost_steps.incomplete
+  end
   
 end

@@ -13,6 +13,7 @@ class CreateGhostSteps < ActiveRecord::Migration
       t.float :dest_long
       t.string :heading
       t.string :duration
+      t.boolean :completed, :default => false
 
       t.timestamps null: false
     end

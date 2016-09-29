@@ -64,32 +64,89 @@ class GhostTrackerTest < ActiveSupport::TestCase
   end
 
   test "track active step" do
-    travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 00, 00) do
-      @ghost_tracker = GhostTracker.new
-      @ghost_tracker.trackActiveCommutes
-    end
+    setGhostTrackerAt1700
     travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 03, 00) do
-      @ghost_tracker.active_steps.each { |active_step|
-        if active_step.start_time
-          ghost_step = active_step.ghost_step.attributes
-          assert_no_difference('ActiveStep.count') do
-            @ghost_tracker.trackStep active_step
-          end
-          assert_not_equal GhostStep.find(ghost_step['id']).duration, ghost_step[:duration]
+      @ghost_tracker.active_steps.each do |active_step|
+        ghost_step = active_step.ghost_step.attributes
+        assert_no_difference('ActiveStep.count') do
+          @ghost_tracker.trackStep active_step
         end
-      }
+      end
     end
     travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 04, 00) do
-      @ghost_tracker.active_steps.each { |active_step|
-        if active_step.start_time
-          ghost_step = active_step.ghost_step.attributes
-          assert_difference('ActiveStep.count', -1) do
-            @ghost_tracker.trackStep active_step
-          end
-          assert_not_equal GhostStep.find(ghost_step['id']).duration, ghost_step[:duration]
-        end
-      }
+      @ghost_tracker.active_steps.each do |active_step|
+        ghost_step = active_step.ghost_step.attributes
+        @ghost_tracker.trackStep active_step
+        assert_not_equal GhostStep.find(ghost_step['id']).duration, ghost_step[:duration]
+        assert_not_equal GhostStep.find(ghost_step['id']).completed, ghost_step[:completed]
+      end
     end
   end
+
+  test "finish step" do
+    active_step = ActiveStep.all.sample
+    ghost_step_attr = active_step.ghost_step.attributes
+    @ghost_tracker.finishStep active_step
+    assert_not_equal active_step.ghost_step.duration, ghost_step_attr[:duration]
+    assert_not_equal active_step.ghost_step.completed, ghost_step_attr[:completed]
+    assert active_step.ghost_step.completed
+  end
+
+  test "queue next step" do
+    assert_nothing_raised do
+      @ghost_tracker.queueNextSteps
+    end
+    setGhostTrackerAt1700
+    trackStepAt1704
+    previous_steps = @ghost_tracker.active_steps.select('id').to_a
+    @ghost_tracker.queueNextSteps
+    assert_not_equal @ghost_tracker.active_steps.select('id').to_a, previous_steps
+  end
+
+  test "next step" do
+    setGhostTrackerAt1700
+    trackStepAt1704
+    @ghost_tracker.queueNextSteps
+    travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 05, 00) do
+      @ghost_tracker.active_steps.each do |active_step|
+        ghost_step = active_step.ghost_step.attributes
+        step_attr = active_step.attributes
+        @ghost_tracker.trackStep active_step
+        assert_not_equal ActiveStep.find(step_attr['id']).request, step_attr[:request]
+        assert_not_equal ActiveStep.find(step_attr['id']).watched_vehicles, step_attr[:watched_vehicles]
+      end
+    end
+  end
+
+  test "step progress through boolean state changes" do
+    setGhostTrackerAt1700
+    trackStepAt1704
+    @ghost_tracker.queueNextSteps
+    travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 05, 00) do
+      active_step = @ghost_tracker.active_steps.first
+      ghost_step = active_step.ghost_step.attributes
+      step_attr = active_step.attributes
+      active_step.arriving_at_origin = false
+      active_step = @ghost_tracker.trackStep active_step
+      assert active_step.arriving_at_origin
+    end
+  end
+
+  private
+
+    def setGhostTrackerAt1700
+      travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 00, 00) do
+        @ghost_tracker = GhostTracker.new
+        @ghost_tracker.trackActiveCommutes
+      end
+    end
+
+    def trackStepAt1704
+      travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 04, 00) do
+        @ghost_tracker.active_steps.each do |active_step|
+          @ghost_tracker.trackStep active_step
+        end
+      end
+    end
 
 end
