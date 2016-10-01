@@ -34,3 +34,36 @@ three:
   dest_lat: 41.7811225
   dest_long: -87.6083919
   duration: 204
+
+walking:
+  ghost_commute: two
+  mode: WALKING
+  origin_lat: 41.8761537
+  origin_long: -87.6276275
+  dest_lat: 41.8795052
+  dest_long: -87.6260376
+  duration: 204
+
+train:
+  ghost_commute: two
+  mode: SUBWAY
+  line: Red Line
+  origin: "Jackson (Red)"
+  origin_lat: 41.8774522
+  origin_long: -87.6277926
+  dest: 63rd
+  dest_lat: 41.7805367
+  dest_long: -87.6309509
+  heading: 95th
+
+bus:
+  ghost_commute: two
+  mode: BUS
+  line: 63rd
+  origin: "63rd Street & Wentworth"
+  origin_lat: 41.7799072
+  origin_long: -87.6298904
+  dest: "63rd Street & Langley"
+  dest_lat: 41.7802887
+  dest_long: -87.6084518
+  heading: Stony Island

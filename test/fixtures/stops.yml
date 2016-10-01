@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+adams_wabash_1:
   stop_id: 30131
   stop_name: Adams/Wabash
   stop_lat: "41.879507"
@@ -9,7 +9,7 @@ one:
   parent_station: 40680
   wheelchair_boarding: false
 
-two:
+adams_wabash_2:
   stop_id: 30132
   stop_name: Adams/Wabash
   stop_lat: "41.879507"
@@ -17,3 +17,51 @@ two:
   location_type: false
   parent_station: 40680
   wheelchair_boarding: false
+
+cottage_1:
+  stop_id: 30139
+  stop_name: East 63rd-Cottage Grove
+  stop_lat: 41.780309
+  stop_lon: -87.605857
+
+cottage_2:
+  stop_id: 30140
+  stop_name: East 63rd-Cottage Grove
+  stop_lat: "41.780309"
+  stop_lon: "-87.605857"
+
+63rd_wentworth:
+  stop_id: 3228
+  stop_name: "63rd Street & Wentworth"
+  stop_lat: "41.78005202"
+  stop_lon: "-87.62998054"
+
+63rd_langley:
+  stop_id: 3218
+  stop_name: "63rd Street & Langley"
+  stop_lat: "41.78022609"
+  stop_lon: "-87.60846608"
+
+63rd_1:
+  stop_id: 30177
+  stop_name: 63rd
+  stop_lat: 41.780536
+  stop_lon: -87.630952
+
+63rd_2:
+  stop_id: 30178
+  stop_name: 63rd
+  stop_lat: 41.780536
+  stop_lon: -87.630952
+
+jackson_red:
+  stop_id: 30109
+  stop_name: Jackson-Red
+  stop_lat: 41.878153
+  stop_lon: -87.627596
+
+jackson_red:
+  stop_id: 30110
+  stop_name: Jackson-Red
+  stop_lat: 41.878153
+  stop_lon: -87.627596

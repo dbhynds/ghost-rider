@@ -39,9 +39,15 @@ class ActiveStepTest < ActiveSupport::TestCase
     assert_equal @active_step.mode, mode
   end
 
-  test "active step has origin and dest of ghost step" do
+  test "active step has attributes of ghost step" do
     assert_equal @active_step.origin, @ghost_step.origin
     assert_equal @active_step.destination, @ghost_step.dest
+    assert_equal @active_step.origin_lat, @ghost_step.origin_lat
+    assert_equal @active_step.origin_long, @ghost_step.origin_long
+    assert_equal @active_step.dest_lat, @ghost_step.dest_lat
+    assert_equal @active_step.dest_long, @ghost_step.dest_long
+    assert_equal @active_step.duration, @ghost_step.duration
+    assert_equal @active_step.heading, @ghost_step.heading
   end
 
 end

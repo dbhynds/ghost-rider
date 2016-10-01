@@ -26,4 +26,13 @@ class CommuteTest < ActiveSupport::TestCase
     assert @commute.user.id == @user.id
   end
 
+  test "fetch ghost commutes" do
+    ghost_steps = GhostStep.all.count
+    assert_difference('@commute.ghost_commutes.count',4) do
+      @commute.fetchGhosts
+    end
+    assert_operator(GhostStep.all.count,'>',ghost_steps)
+    assert_operator(GhostStep.all.count - ghost_steps,'>=',4)
+  end
+
 end
