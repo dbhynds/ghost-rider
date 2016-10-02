@@ -100,7 +100,7 @@ class GhostTracker
     step_arrivals.flatten!
     run = step_arrivals.shift
     # train_request('follow',{'runnumber' => run['rn']})
-    return active_step
+    # return active_step
     active_step.request = train_request('follow',{'runnumber' => run['rn']})
     active_step.watched_vehicles = run['rn']
     train_data = HTTParty.get(active_step.request).parsed_response['ctatt']['eta']
@@ -113,10 +113,10 @@ class GhostTracker
       active_step.arrived_at_origin = !upcoming_stops.include?(active_step.origin)
     end
     if active_step.arrived_at_origin && !active_step.arriving_at_dest
-      active_step.arriving_at_dest = upcoming_stops.include?(active_step.dest)
+      active_step.arriving_at_dest = upcoming_stops.include?(active_step.destination)
     end
     if active_step.arriving_at_dest
-      active_step.arrived_at_dest = !upcoming_stops.include?(active_step.dest)
+      active_step.arrived_at_dest = !upcoming_stops.include?(active_step.destination)
     end
 
     if active_step.arrived_at_dest

@@ -59,7 +59,7 @@ class GhostTrackerTest < ActiveSupport::TestCase
     end
     travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 00, 00) do
       @ghost_tracker = GhostTracker.new
-      assert_difference('ActiveStep.count',5) do
+      assert_difference('ActiveStep.count',6) do
         @ghost_tracker.trackActiveCommutes
       end
       assert_difference('GhostCommute.count',4) do
