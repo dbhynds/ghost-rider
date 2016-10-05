@@ -21,13 +21,16 @@ class GhostStepTest < ActiveSupport::TestCase
 
   test "a ghost step has proper relationships" do
     @ghost_step = @ghost_commute.ghost_steps.create!
-    assert @ghost_step.ghost_commute == @ghost_commute
+    @active_step = @ghost_step.build_active_step(:start_time => Time.now.to_i)
+    assert_equal @ghost_step.ghost_commute, @ghost_commute
     assert @ghost_commute.ghost_steps.include? @ghost_step
-    assert @ghost_step.ghost_commute.commute == @commute
-    assert @ghost_step.ghost_commute.commute.user == @user
+    assert_equal @ghost_step.ghost_commute.commute, @commute
+    assert_equal @ghost_step.ghost_commute.commute.user, @user
+    assert_equal @ghost_step.active_step, @active_step
   end
 
   test "track a ghost step" do
+    @ghost_step = @ghost_commute.ghost_steps.create!
     assert_difference('ActiveStep.count') do
       @active_step = @ghost_step.track
       assert_equal @active_step.ghost_step, @ghost_step

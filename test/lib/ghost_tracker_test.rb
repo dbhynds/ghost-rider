@@ -134,26 +134,12 @@ class GhostTrackerTest < ActiveSupport::TestCase
     trackStepAt1704
     @ghost_tracker.queueNextSteps
     travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 05, 00) do
-      active_step = active_steps(:two)
-      ghost_step = active_step.ghost_step.attributes
+      ghost_step = ghost_steps(:two)
+      active_step = ghost_step.active_step
       step_attr = active_step.attributes
       @ghost_tracker.trackStep active_step
       assert_not_equal ActiveStep.find(step_attr['id']).request, step_attr[:request]
       assert_not_equal ActiveStep.find(step_attr['id']).watched_vehicles, step_attr[:watched_vehicles]
-    end
-  end
-
-  test "step progress through boolean state changes" do
-    setGhostTrackerAt1700
-    trackStepAt1704
-    @ghost_tracker.queueNextSteps
-    travel_to Time.new(Time.now.year, Time.now.month, Time.now.day, 17, 05, 00) do
-      active_step = @ghost_tracker.active_steps.first
-      ghost_step = active_step.ghost_step.attributes
-      step_attr = active_step.attributes
-      active_step.arriving_at_origin = false
-      active_step = @ghost_tracker.trackStep active_step
-      assert active_step.arriving_at_origin
     end
   end
 

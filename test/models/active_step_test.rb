@@ -11,7 +11,7 @@ class ActiveStepTest < ActiveSupport::TestCase
   end
 
   test "create an active step" do
-    assert @ghost_step.active_steps.create!
+    assert @ghost_step.build_active_step
   end
 
   test "create an invalid active step" do
@@ -21,12 +21,13 @@ class ActiveStepTest < ActiveSupport::TestCase
   end
 
   test "an active step has proper relationships" do
-    @active_step = @ghost_step.active_steps.create!
-    assert @active_step.ghost_step == @ghost_step
-    assert @active_step.ghost_step.ghost_commute == @ghost_commute
+    @active_step = @ghost_step.build_active_step
+    assert_equal @active_step.ghost_step, @ghost_step
+    assert_equal @active_step.ghost_step.ghost_commute, @ghost_commute
     assert @active_step.ghost_step.ghost_commute.ghost_steps.include? @ghost_step
-    assert @active_step.ghost_step.ghost_commute.commute == @commute
-    assert @active_step.ghost_step.ghost_commute.commute.user == @user
+    assert_equal @active_step.ghost_step.ghost_commute.commute, @commute
+    assert_equal @active_step.ghost_step.ghost_commute.commute.user, @user
+    assert_equal @ghost_step.active_step, @active_step
   end
 
   test "an active step has a mode" do
